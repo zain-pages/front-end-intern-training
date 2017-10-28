@@ -77,11 +77,16 @@
       box-shadow: #aaa 0 0 10px;
       display: none;
     }
+    article a{
+      word-break: break-all;
+      word-wrap: break-word
+    }
     article li{
       margin-left: 20px;
     }
     article img{
       border: 1px solid;
+      max-width: 100%;
     }
   </style>
 </head>
@@ -137,6 +142,9 @@
         var converter = new showdown.Converter();
         html_content = converter.makeHtml(data);
         $('article').html( html_content );
+        $('html,body').animate({
+            scrollTop: $('article').offset().top - 60
+        }, 1000);
       });
       _LOCK = false;
     })
