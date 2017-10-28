@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>弦歌前端新人培训</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      font-family: "微软雅黑 Light";
+    }
+    body{
+      background-color: #eee;
+    }
+    main{
+      display: flex;
+      flex-direction: column;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    header{
+      background: url(http://ife.baidu.com/2017/asset/common/img/banner_c162049.jpg) center center no-repeat;
+      width: 100%;
+      height: 458px;
+      background-position: bottom;
+      text-align: center;
+      color: #fff;
+    }
+    header p{
+      padding-top: 200px;
+      font-size: 36px;
+    }
+    footer{
+      margin-top: 50px;
+      text-align: center;
+    }
+    #articleList{
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    #articleList li{
+      width: 200px;
+      height: 150px;
+      background-color: #eee;
+      margin: 10px;
+      flex-grow: 1;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      cursor: pointer;
+      transition: all 0.5s;
+    }
+    #articleList li a{
+      text-decoration: none;
+      font-size: 24px;
+      color: #fff;
+      font-weight: 700;
+      transition: all 0.5s;
+    }
+    .active,#articleList li:hover{
+      background-color: #fff !important;
+      box-shadow: #aaa 0 0 10px;
+    }
+    .activea,#articleList li:hover a{
+      color: #000 !important;
+    }
+    article{
+      line-height: 2;
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: #fff;
+      box-shadow: #aaa 0 0 10px;
+      display: none;
+    }
+    article li{
+      margin-left: 20px;
+    }
+    article img{
+      border: 1px solid;
+    }
+  </style>
+</head>
+<body>
+  <main>
+  <header><p>弦歌前端新人培训<br>2017</p></header>
+  <ul id="articleList">
+    <li><a href="javascript:;" data-href="start">前言</a></li>
+    <li><a href="javascript:;" data-href="1">第1周</a></li>
+    <li><a href="javascript:;" data-href="2">第2周</a></li>
+    <li><a href="javascript:;" data-href="3">第3周</a></li>
+    <li><a href="javascript:;" data-href="4">第4周</a></li>
+    <li><a href="javascript:;" data-href="5">第5周</a></li>
+    <li><a href="javascript:;" data-href="6">第6周</a></li>
+    <li><a href="javascript:;" data-href="7">第7周</a></li>
+    <li><a href="javascript:;" data-href="8">第8周</a></li>
+    <li><a href="javascript:;" data-href="end">成果验收</a></li>
+  </ul>
+  <article></article>
+  <footer>大丸子 2017&copy;</footer>
+  </main>
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/showdown/1.7.6/showdown.min.js"></script>
+  <script>
+  !function(){
+    var _LOCK = false;
+    var getRandomColor = function(){
+      return  '#' +
+      (function(color){
+      return (color +=  '0123456789'[Math.floor(Math.random()*10)])
+        && (color.length == 6) ?  color : arguments.callee(color);
+        })('');
+      };
+    $('#articleList li').each(function(index, item){
+      $(item).css('background-color', getRandomColor());
+    });
+    $('#articleList').on('click','li',function(){
+      if(_LOCK){
+        return false;
+      }
+      _LOCK = true;
+      self = this;
+      console.log(self);
+      $.get('data/' + $(self).find('a').attr('data-href') + '.md',{},function(data){
+        $('article').show();
+
+        $('#articleList li').removeClass('active');
+        $('#articleList li a').removeClass('activea');
+
+        $(self).addClass('active');
+        $(self).find('a').addClass('activea');
+
+        var converter = new showdown.Converter();
+        html_content = converter.makeHtml(data);
+        $('article').html( html_content );
+      });
+      _LOCK = false;
+    })
+  }()
+  </script>
+</body>
+</html>
