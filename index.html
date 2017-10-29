@@ -156,7 +156,7 @@
       $(item).css('background-color', getRandomColor());
     });
     $('#consultList').on('click','li',function(){
-      $(this).find('a').click();
+      window.location.href = $(this).find('a').attr('href');
     });
     $('#articleList').on('click','li',function(){
       if(_LOCK){
