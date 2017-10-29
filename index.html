@@ -29,21 +29,41 @@
       color: #fff;
     }
     header p{
-      padding-top: 200px;
+      padding-top: 150px;
       font-size: 36px;
+    }
+    .btn{
+      text-decoration: none;
+      color: #fff;
+      padding: 10px 20px;
+      background-color: #02af5f;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 20px;
+      transition: 0.5s all;
+    }
+    .btn:hover{
+      background-color: #ffa500;
+    }
+    main>h2{
+      line-height: 2;
+      border-bottom: 2px solid;
+      border-left: 20px solid;
+      text-indent: 2em;
+      margin: 10px 0;
     }
     footer{
       margin-top: 50px;
       text-align: center;
     }
-    #articleList{
+    #articleList,#consultList{
       list-style: none;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: space-around;
     }
-    #articleList li{
+    #articleList li,#consultList li{
       width: 200px;
       height: 150px;
       background-color: #eee;
@@ -55,18 +75,18 @@
       cursor: pointer;
       transition: all 0.5s;
     }
-    #articleList li a{
+    #articleList li a,#consultList li a{
       text-decoration: none;
       font-size: 24px;
       color: #fff;
       font-weight: 700;
       transition: all 0.5s;
     }
-    .active,#articleList li:hover{
+    .active,#articleList li:hover,#consultList li:hover{
       background-color: #fff !important;
       box-shadow: #aaa 0 0 10px;
     }
-    .activea,#articleList li:hover a{
+    .activea,#articleList li:hover a,#consultList li:hover a{
       color: #000 !important;
     }
     article{
@@ -92,7 +112,8 @@
 </head>
 <body>
   <main>
-  <header><p>弦歌前端新人培训<br>2017</p></header>
+  <header><p>弦歌前端新人培训<br>2017</p><a class="btn" href="http://qnxg.net/hr/">立刻加入</a></header>
+  <h2>学习列表</h2>
   <ul id="articleList">
     <li><a href="javascript:;" data-href="start">前言</a></li>
     <li><a href="javascript:;" data-href="1">第1周</a></li>
@@ -106,6 +127,14 @@
     <li><a href="javascript:;" data-href="end">成果验收</a></li>
   </ul>
   <article></article>
+  <h2>参考资料</h2>
+  <ul id="consultList">
+    <li><a href="http://www.runoob.com/">菜鸟教程</a></li>
+    <li><a href="https://developer.mozilla.org/zh-CN/">MDN</a></li>
+    <li><a href="http://www.w3school.com.cn/">W3School</a></li>
+    <li><a href="http://www.imooc.com/">慕课网</a></li>
+    <li><a href="https://www.freecodecamp.cn/">freecodecamp</a></li>
+  </ul>
   <footer>大丸子 2017&copy;</footer>
   </main>
   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
@@ -122,6 +151,12 @@
       };
     $('#articleList li').each(function(index, item){
       $(item).css('background-color', getRandomColor());
+    });
+    $('#consultList li').each(function(index, item){
+      $(item).css('background-color', getRandomColor());
+    });
+    $('#consultList').on('click','li',function(){
+      $(this).find('a').click();
     });
     $('#articleList').on('click','li',function(){
       if(_LOCK){
